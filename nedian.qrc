@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>Nedian-Bold.ttf</file>
-        <file>Nedian-Light.ttf</file>
-        <file>Nedian-Medium.otf</file>
-    </qresource>
-</RCC>

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>gothic.ttf</file>
+    </qresource>
+</RCC>
