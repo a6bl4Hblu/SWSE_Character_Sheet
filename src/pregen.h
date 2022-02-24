@@ -42,11 +42,14 @@ QVector<QString> speciesNameText = QVector<QString>{
         "Human",
         //"Devaronian",
         "Duros",
+        //Ithorian,
         "Kel Dor",
+        //Klatooinian,
         //"Mon Calamari",
+        //Sullustan,
         //"Trandoshan",
         //"Twi'lek",
-        //"Zabrak",
+        "Zabrak",
         //"Zeltron",
         "Droid (Astromech)",
         "Droid (Battle)",
@@ -118,11 +121,11 @@ QVector<Species *> specieses{
                              "Deceptive: Reroll any Deception check (take the last).",
                              "Great Fortitude: Gain +2 Species bonus to Fortitude Defense.",
                              "Low-Light Vision: Ignore Concealment (but not Total Concealment) from darkness."}),*/
-            /*new Species( // Zabrak
+            new Species( // Zabrak
                          QString("Hairless humanoids, distinguished by patterns of vestigial horns atop their heads."),
                          QVector<QString>{
                              "Heightened Awareness: Reroll any Perception checks (take the last).",
-                             "Superior Defenses: Gain a +1 Species bonus to all Defenses."}),*/
+                             "Superior Defenses: Gain a +1 Species bonus to all Defenses."}),
             /*new Species( // Zeltron
                          QString("Humanoids considered to be attractive by Human standarts with red skin."),
                          QVector<QString>{
