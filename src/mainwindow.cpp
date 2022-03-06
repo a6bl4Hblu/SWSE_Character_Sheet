@@ -42,20 +42,14 @@ MainWindow::MainWindow(QWidget *parent)
     characterMenu->addAction(loadAction);
 
     this->menuBar()->addMenu(characterMenu);
-    //this->menuBar()->setFont(QFont("ITC Serif Gothic", 10));
 
-
-    //QCoreApplication::setAttribute(Qt::AA_UseStyleSheetPropagationInWidgetStyles, true);
-    //QApplication::setFont(QFont("Nedian"));
     qApp->setStyleSheet(
                 "QTabWidget, QTabWidget * {"
                     "font-family: 'Nedian';"
-                    "font-size: 10;}"
+                    "font-size: 10pt;}"
                 "QMenuBar, QMenu {"
                     "font-family: 'ITC Serif Gothic';"
-                    "font-size: 10;}"
-                //"QMenu {"
-                    //"font-family: 'ITC Serif Gothic';}"
+                    "font-size: 10pt;}"
                 "QGroupBox {"
                     "font-weight: bold;"
                     "border: 1px solid gray;"
@@ -73,7 +67,6 @@ MainWindow::MainWindow(QWidget *parent)
                     "left: 20px;}");
     // Main Tab Widget
     QTabWidget *mainTabs = new QTabWidget();
-    //mainTabs->setFont(QFont("Nedian", 10));
     mainTabs->setTabsClosable(true);
     this->setCentralWidget(mainTabs);
 
@@ -340,9 +333,21 @@ void MainWindow::addAction_triggered(bool opened)
                                         if(mod > 0)
                                             str.prepend("+");
                                         absMod.value(i)->setText(str);
-                                        for(int i = FirstSkill; i <= LastSkill; i++)
-                                            if(skillAbility.at(i) == numAb)
-                                                sksScr.at(i)->setText(QString::number(ch->getSkillScore((Skill)i)));
+                                        if (numAb == Constitution)
+                                        {
+                                            sksScr.at(Endurance)->setText(QString::number(ch->getSkillScore((Skill)i)));
+                                            fortitude->setText(QString::number(ch->getDefenceScore(Fortitude)));
+                                        }
+                                        else
+                                        {
+                                            if(numAb == Dexterity)
+                                                reflex->setText(QString::number(ch->getDefenceScore(Reflex)));
+                                            if(numAb == Wisdom)
+                                                will->setText(QString::number(ch->getDefenceScore(Will)));
+                                            for(int i = FirstSkill; i <= LastSkill; i++)
+                                                if(skillAbility.at(i) == numAb)
+                                                    sksScr.at(i)->setText(QString::number(ch->getSkillScore((Skill)i)));
+                                        }
         });
         absLayout->addWidget(absLabels.at(i), i, 0);
         absLayout->addWidget(absScr.at(i), i, 1);
@@ -1262,7 +1267,7 @@ void MainWindow::addAction_triggered(bool opened)
                 weaponNotes.value(i)->setText(jsonVec.at(5).toString()); // Notes
                 weaponRof.value(i)->setText(jsonVec.at(6).toString()); // RoF
                 weaponSize.value(i)->setCurrentIndex(jsonVec.at(7).toInt()); // Size
-                weaponStunDmg.value(i)->setText(jsonVec.at(8).toString()); // StunDmg
+                weaponStunDmg.value(i)->setChecked(jsonVec.at(8).toBool()); // StunDmg
                 weaponType.value(i)->setText(jsonVec.at(9).toString()); // Type
             }  catch (QException &e) {
                 QMessageBox *error = new QMessageBox(this);
