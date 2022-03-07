@@ -61,7 +61,7 @@ private:
 // =========================================================================
     int credits = 0;
     Armor *armor = new Armor;
-    QVector<Weapon *> weapons = QVector<Weapon *>{new Weapon, new Weapon, new Weapon, new Weapon};
+    QVector<Weapon *> weapons = QVector<Weapon *>{new Weapon, new Weapon, new Weapon, new Weapon, new Weapon, new Weapon};
     //QVector<QString *> equipments;
     QString equipments;
 // =========================================================================

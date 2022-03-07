@@ -204,22 +204,20 @@ void MainWindow::addAction_triggered(bool opened)
     QComboBox *armorAvailability = new QComboBox;
     QLineEdit *armorNotes = new QLineEdit;
     // Weapons
-    QVector<QComboBox *> weaponGr(4);
-    QVector<QComboBox *> weaponSize(4);
-    QVector<QLineEdit *> weaponName(4);
-    QVector<QLineEdit *> weaponDmg(4);
-    QVector<QCheckBox *> weaponStunDmg(4);
-    QVector<QLineEdit *> weaponRof(4);
-    QVector<QLineEdit *> weaponType(4);
-    QVector<QLineEdit *> weaponCost(4);
-    QVector<QComboBox *> weaponAvailability(4);
-    QVector<QLineEdit *> weaponNotes(4);
+    QVector<QComboBox *> weaponGr(6);
+    QVector<QComboBox *> weaponSize(6);
+    QVector<QLineEdit *> weaponName(6);
+    QVector<QLineEdit *> weaponDmg(6);
+    QVector<QCheckBox *> weaponStunDmg(6);
+    QVector<QLineEdit *> weaponRof(6);
+    QVector<QLineEdit *> weaponType(6);
+    QVector<QLineEdit *> weaponCost(6);
+    QVector<QComboBox *> weaponAvailability(6);
+    QVector<QLineEdit *> weaponNotes(6);
     // Equipments
     QTextEdit *equipments = new QTextEdit;
 // =========================================================================
-    //QPushButton *featAdd = new QPushButton("+");
     QTextEdit *feats = new QTextEdit;
-    //QPushButton *talentAdd = new QPushButton("+");
     QTextEdit *talents= new QTextEdit;
     QTextEdit *languages = new QTextEdit;
     QTextEdit *notes = new QTextEdit;
@@ -248,28 +246,12 @@ void MainWindow::addAction_triggered(bool opened)
     sksLayout->setHorizontalSpacing(spacingValueH);
     sksLayout->setVerticalSpacing(spacingValueV);
     ql = new QLabel("T");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     sksLayout->addWidget(ql, 0, 2);
     ql = new QLabel("F");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     sksLayout->addWidget(ql, 0, 3);
     ql = new QLabel("Misc");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     sksLayout->addWidget(ql, 0, 4);
     ql = new QLabel("C");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     sksLayout->addWidget(ql, 0, 5);
     for(char i = FirstSkill; i <= LastSkill; i++)
     {
@@ -280,19 +262,19 @@ void MainWindow::addAction_triggered(bool opened)
         sksTrain.replace(i, new QCheckBox());
         qchkbTemp = sksTrain.at(i);
         connect(qchkbTemp, &QCheckBox::stateChanged,
-                this, [=](int chk){ ch->setSkillTrain((Skill)i, chk, &skillAbility);
+                this, [=](int chk){ ch->setSkillTrain((Skill)i, (bool)chk, &skillAbility);
                                     sksScr.at(i)->setText(QString::number(ch->getSkillScore((Skill)i)));
         });
         sksFocus.replace(i, new QCheckBox());
         qchkbTemp = sksFocus.at(i);
         connect(qchkbTemp, &QCheckBox::stateChanged,
-                this, [=](int chk){ ch->setSkillFocus((Skill)i, chk, &skillAbility);
+                this, [=](int chk){ ch->setSkillFocus((Skill)i, (bool)chk, &skillAbility);
                                     sksScr.at(i)->setText(QString::number(ch->getSkillScore((Skill)i)));
         });
         sksClass.replace(i, new QCheckBox());
         qchkbTemp = sksClass.at(i);
         connect(qchkbTemp, &QCheckBox::stateChanged,
-                this, [=](int chk){ ch->setSkillClass((Skill)i, chk);
+                this, [=](int chk){ ch->setSkillClass((Skill)i, (bool)chk);
         });
         sksMisc.replace(i, new QLineEdit("0"));
         qleTemp = sksMisc.at(i);
@@ -586,19 +568,18 @@ void MainWindow::addAction_triggered(bool opened)
     // Defences
     // Fortitude text lines
     fortitude->setToolTip("10 + Constitution mod + Class mod + Fortitude + Misc");
-    connect(fortitude, &QLabel::windowIconTextChanged,
-            this, [=](QString){dmgThreshold->setText(QString::number(ch->getDmgThreshold()));
-    });
     fortArmor->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
     connect(fortArmor, &QLineEdit::textChanged,
             this, [=](QString qs){  ch->setDefenceArmor(Fortitude, (char)qs.toInt(), clases.at(ch->getClas())->getDefenceBonus().at(Fortitude));
                                     fortitude->setText(QString::number(ch->getDefenceScore(Fortitude)));
+                                    ch->updDmgThreshold();
                                     dmgThreshold->setText(QString::number(ch->getDmgThreshold()));
     });
     fortMisc->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
     connect(fortMisc, &QLineEdit::textChanged,
             this, [=](QString qs){  ch->setDefenceMisc(Fortitude, (char)qs.toInt(), clases.at(ch->getClas())->getDefenceBonus().at(Fortitude));
                                     fortitude->setText(QString::number(ch->getDefenceScore(Fortitude)));
+                                    ch->updDmgThreshold();
                                     dmgThreshold->setText(QString::number(ch->getDmgThreshold()));
     });
     // Reflex text lines
@@ -702,58 +683,27 @@ void MainWindow::addAction_triggered(bool opened)
     // Armor box
     QGridLayout *armorLayout= new QGridLayout;
     ql = new QLabel("Type");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     armorLayout->addWidget(ql, 0, 0);
     armorLayout->addWidget(armorType, 1, 0);
     ql = new QLabel("Armor");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     armorLayout->addWidget(ql, 0, 1);
     armorLayout->addWidget(armor, 1, 1);
     ql = new QLabel("Ref");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     armorLayout->addWidget(ql, 0, 2);
     armorLayout->addWidget(armorRefBonus, 1, 2);
     ql = new QLabel("Fort");
-    /*ql->setStyleSheet("QLabel {"
-                      "font: Nedian"
-                      "font-size: 6;}");*/
     armorLayout->addWidget(ql, 0, 3);
     armorLayout->addWidget(armorFortBonus, 1, 3);
     ql = new QLabel("Max Dex");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     armorLayout->addWidget(ql, 0, 4);
     armorLayout->addWidget(armorMaxDexBonus, 1, 4);
     ql = new QLabel("Cost");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     armorLayout->addWidget(ql, 0, 5);
     armorLayout->addWidget(armorCost, 1, 5);
     ql = new QLabel("Avail.");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     armorLayout->addWidget(ql, 0, 6);
     armorLayout->addWidget(armorAvailability, 1, 6);
     ql = new QLabel("Notes");
-    /*ql->setStyleSheet("QLabel {"
-                        "font-family: 'Nedian';"
-                        "font-size: 6;"
-                        "font-weight: light;}");*/
     armorLayout->addWidget(ql, 2, 0);
     armorLayout->addWidget(armorNotes, 2, 1, 1, 8);
     armorLayout->setHorizontalSpacing(spacingValueH);
@@ -767,7 +717,7 @@ void MainWindow::addAction_triggered(bool opened)
 
     // Weapons
     QVBoxLayout *weaponsLayout = new QVBoxLayout;
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 6; i++)
     {
         weaponGr.replace(i, new QComboBox);
         weaponGr.value(i)->addItems(QStringList(QList<QString>(weaponGroupNameText.begin(), weaponGroupNameText.end())));
@@ -815,66 +765,30 @@ void MainWindow::addAction_triggered(bool opened)
 
         QGridLayout *weaponLayout = new QGridLayout;
         ql = new QLabel("Group");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 0);
         weaponLayout->addWidget(weaponGr.at(i), 1, 0);
         ql = new QLabel("Size");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 1);
         weaponLayout->addWidget(weaponSize.at(i), 1, 1);
         ql = new QLabel("Weapon");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 2);
         weaponLayout->addWidget(weaponName.at(i), 1, 2);
         ql = new QLabel("Dmg");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 3);
         weaponLayout->addWidget(weaponDmg.at(i), 1, 3);
         ql = new QLabel("Stun");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 4);
         weaponLayout->addWidget(weaponStunDmg.at(i), 1, 4, Qt::AlignCenter);
         ql = new QLabel("RoF");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 5);
         weaponLayout->addWidget(weaponRof.at(i), 1, 5);
         ql = new QLabel("Dmg Type");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 6);
         weaponLayout->addWidget(weaponType.at(i), 1, 6);
         ql = new QLabel("Cost");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 7);
         weaponLayout->addWidget(weaponCost.at(i), 1, 7);
         ql = new QLabel("Avail.");
-        /*ql->setStyleSheet("QLabel {"
-                            "font-family: 'Nedian';"
-                            "font-size: 6;"
-                            "font-weight: light;}");*/
         weaponLayout->addWidget(ql, 0, 8);
         weaponLayout->addWidget(weaponAvailability.at(i), 1, 8);
         weaponLayout->addWidget(new QLabel("Notes"), 2, 0);
@@ -1253,7 +1167,7 @@ void MainWindow::addAction_triggered(bool opened)
             return;
         }
 
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 6; i++)
         {
             try {
                 QString qs = "Weapon";
@@ -1408,7 +1322,7 @@ QString MainWindow::saveToJson(int numChar)
     jsonArray.append(arm->getType());
     record.insert("Armor", jsonArray);
 
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 6; i++)
     {
         jsonArray = QJsonArray();
         Weapon *weap = ch->getWeapon(i);

@@ -40,17 +40,17 @@ QVector<Clas *> clases{
 // =========================================================================
 QVector<QString> speciesNameText = QVector<QString>{
         "Human",
-        //"Devaronian",
+        "Devaronian",
         "Duros",
-        //Ithorian,
+        "Ithorian",
         "Kel Dor",
-        //Klatooinian,
-        //"Mon Calamari",
-        //Sullustan,
-        //"Trandoshan",
-        //"Twi'lek",
+        "Klatooinian",
+        "Mon Calamari",
+        "Sullustan",
+        "Trandoshan",
+        "Twi'lek",
         "Zabrak",
-        //"Zeltron",
+        "Zeltron",
         "Droid (Astromech)",
         "Droid (Battle)",
         "Droid (Probe)",
@@ -63,75 +63,75 @@ QVector<Species *> specieses{
                          QVector<QString>{
                              "Bonus Talent.",
                              "Bonus Feat."}),
-            /*new Species( // Devaronian
+            new Species( // Devaronian
                          QString("(Male) Hairless humanoids with red-tinted skin, sharp incisors, and a pair of large horns growing from their foreheads. (Female) Hornless humanoids covered in thick fur with prominent canine teeth."),
                          QVector<QString>{
                              "(Male) +2 Dex, -2 Wis, -2 Cha, (Female) +2 Int, +2 Wis, -2 Dex",
                              "Conditional Bonus Feat: If Skill Trained, then Skill Focus (Deception only).",
-                             "Natural Curiosity: Once per encounter as a Standard Action, can make a Perception check against a single target within line of sight (DC 15 or the result of an opposed Stealth check, if the target is actively attempting to hide) to gain a +1 insight bonus on attack rolls against that target."}),*/
+                             "Natural Curiosity: Once per encounter as a Standard Action, can make a Perception check against a single target within line of sight (DC 15 or the result of an opposed Stealth check, if the target is actively attempting to hide) to gain a +1 insight bonus on attack rolls against that target."}),
             new Species( // Duros
                          QString("Tall, hairless humanoids with smooth blue-green skin, red eyes, lipless mouths, long thin noseless faces and green blood."),
                          QVector<QString>{
                              "+2 Dex, +2 Int, -2 Con",
                              "Expert Pilot: Reroll any Pilot checks (take the last)."}),
-            /*new Species( // Ithorian
+            new Species( // Ithorian
                          QString("Tall humanoids with long necks that curl forward and end in dome-shaped heads and two mouths, one on each side of their neck, producing a stereo effect when they talk."),
                          QVector<QString>{
                              "+2 Wis, +2 Cha, -2 Dex",
-                             "Bellow: Can emit a terrible subsonic Bellow with [1d20 + Character Level] attack roll against to the Fortitude Defense of all objects in a 6-Square Cone and 3d6 of Sonic damage as a Standard Action. If the attack misses, the target takes half damage. Each use moves the user -1 step along the Condition Track. Can add more dice (d6s) to the damage, but each additional 1d6 of damage moves another -1 step along the Condition Track."
+                             "Bellow: Can emit a terrible subsonic Bellow with [1d20 + Character Level] attack roll against to the Fortitude Defense of all objects in a 6-Square Cone and 3d6 of Sonic damage (half if missed) as a Standard Action. Each use moves the user -1 step along the Condition Track. Can add more damage dice (move -1 step along the Condition Track for each 1d6).",
                              "Conditional Bonus Feat: If Skill Trained, then Skill Focus (Knowledge [Life Sciences] only).",
                              "Iron Will: Gain a +2 Species bonus to Will Defense.",
-                             "Survival Instinct: Reroll any Survival checks (take the last)."}),*/
+                             "Survival Instinct: Reroll any Survival checks (take the last)."}),
             new Species( // Kel Dor
                          QString("Hairless humanoids with trick lethery orange skin, black eyes, wearing breath masks that covered their eyes, nose and mouth."),
                          QVector<QString>{
                              "+2 Dex, +2 Wis, -2 Con",
                              "Keen Force Sense: Reroll any Use the Force checks (Search Feelings/Sense of Force) (take the best)."}),
-            /*new Species( // Klatooinian
+            new Species( // Klatooinian
                          QString("Hairless humanoids with brown course skin, flat muzzle, pronounced jowls, and deepset eyes beneath a heavy brow."),
                          QVector<QString>{
                              "+2 Con, -2 Wis, -2 Int",
-                             "Iron Will: Gain a +2 Species bonus to Will Defense."}),*/
-            /*new Species( // Mon Calamari
+                             "Iron Will: Gain a +2 Species bonus to Will Defense."}),
+            new Species( // Mon Calamari
                          QString("Amphibious humanoids with high-domed heads, large eyes, and smooth, mottled skin."),
                          QVector<QString>{
                              "+2 Int, +2 Wis, -2 Con",
                              "Breathe Underwater: Can't drown in water",
                              "Conditional Bonus Feat: If Skill Trained, then Skill Focus (Perceprion only).",
                              "Expert Swimmer: Reroll any Swim check (take the last). Can Take 10 on Swim checks, even when distracted or threatened.",
-                             "Low-Light Vision: Ignore Concealment (but not Total Concealment) from darkness."}),*/
-            /*new Species( // Sullustan
+                             "Low-Light Vision: Ignore Concealment (but not Total Concealment) from darkness."}),
+            new Species( // Sullustan
                          QString("Short hairless humanoids with large eyes, big ears, and jowls"),
                          QVector<QString>{
                              "+2 Dex, -2 Con",
-                             "Darkvision: Ignore Concealment (and Total Concealment) from darkness."
-                             "Expert Climber: Can Take 10 on Climb checks, even when distracted or threatened.
-                             "Heightened Awareness: Reroll any Perception checks,( but the result of the reroll must be accepted, even if it is worse (take the last)."}),*/
-            /*new Species( // Trandoshan
+                             "Darkvision: Ignore Concealment (and Total Concealment) from darkness.",
+                             "Expert Climber: Can Take 10 on Climb checks, even when distracted or threatened.",
+                             "Heightened Awareness: Reroll any Perception checks (take the last)."}),
+            new Species( // Trandoshan
                          QString("Tall reptilian humanoids with scaly green hides."),
                          QVector<QString>{
                              "+2 Str, -2 Dex",
                              "Darkvision: Ignore Concealment (and Total Concealment) from darkness.",
                              "Limb Regeneration: Regrows a lost limb in 1d10 days. At the end of that time, all Persistent Conditions associated with the loss of the limb are removed.",
-                             "Natural Armor: Gain a +1 Natural Armor bonus to their Reflex Defense. A Natural Armor bonus stacks with an Armor bonus."),*/
-            /*new Species( // Twi'lek
+                             "Natural Armor: Gain a +1 Natural Armor bonus to their Reflex Defense. A Natural Armor bonus stacks with an Armor bonus."}),
+            new Species( // Twi'lek
                          QString("Hairless humanoids with the tentacular \"Head-Tails\" (Lekku) that protrude from the backs of their heads."),
                          QVector<QString>{
                              "+2 Cha, -2 Wis",
                              "Deceptive: Reroll any Deception check (take the last).",
                              "Great Fortitude: Gain +2 Species bonus to Fortitude Defense.",
-                             "Low-Light Vision: Ignore Concealment (but not Total Concealment) from darkness."}),*/
+                             "Low-Light Vision: Ignore Concealment (but not Total Concealment) from darkness."}),
             new Species( // Zabrak
                          QString("Hairless humanoids, distinguished by patterns of vestigial horns atop their heads."),
                          QVector<QString>{
                              "Heightened Awareness: Reroll any Perception checks (take the last).",
                              "Superior Defenses: Gain a +1 Species bonus to all Defenses."}),
-            /*new Species( // Zeltron
+            new Species( // Zeltron
                          QString("Humanoids considered to be attractive by Human standarts with red skin."),
                          QVector<QString>{
                              "+2 Cha, -2 Wis",
                              "Empathy: Add Charisma bonus (if any) to Perception checks (Sense Deception|Sense Influence).",
-                             "Pheromones: Gain a +5 Species bonus on Persuasion checks (change the Attitude of creatures). Does not apply to other Zeltrons."}),*/
+                             "Pheromones: Gain a +5 Species bonus on Persuasion checks (change the Attitude of creatures). Does not apply to other Zeltrons."}),
             new Species( // Droid (Astromech)
                          QString("A type of droid that served as an automated mechanic, performing a variety of repair duties."),
                          QVector<QString>{
@@ -194,7 +194,7 @@ QVector<QString> skillNameText = QVector<QString>{
         "Know. [Tactics]",
         "Know. [Technology]",
         "Mechanics",
-        "Perceprion",
+        "Perception",
         "Persuation",
         "Pilot",
         "Ride",
